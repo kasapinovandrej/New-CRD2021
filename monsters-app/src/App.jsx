@@ -18,7 +18,7 @@ class App extends Component {
       .then((data) => this.setState({ monsters: data }))
       .catch((err) => console.log(err));
   }
-
+component 
   onInputChange = (e) => {
     this.setState({ input: e.target.value });
   };
