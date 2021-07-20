@@ -6,6 +6,7 @@ import { auth } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 
 const Header = ({ currentUser }) => {
+
   return (
     <div className="header">
       <Link to="/">

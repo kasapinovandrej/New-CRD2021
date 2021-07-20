@@ -3,7 +3,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SingInAndSingUp from './pages/sing-in-and-sing-up/sing-in-and-sing-up.component';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import './App.scss';
 import { connect } from 'react-redux'
@@ -15,6 +15,7 @@ class App extends Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
+
     const { setCurrentUser } = this.props
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -34,6 +35,7 @@ class App extends Component {
 
   }
 
+
   componentWillUnmount() {
     this.unsubscribeFromAuth()
   }
@@ -46,15 +48,19 @@ class App extends Component {
         <Switch>
           <Route path='/' exact component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/singin' component={SingInAndSingUp} />
+          <Route path='/singin' render={() => this.props.currentUser ? <Redirect to="/" /> : <SingInAndSingUp />} />
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
+
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
