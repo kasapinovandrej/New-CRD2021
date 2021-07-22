@@ -5,9 +5,9 @@ import Header from './components/header/header.component';
 import SingInAndSingUp from './pages/sing-in-and-sing-up/sing-in-and-sing-up.component';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
-import './App.scss';
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions'
+import './App.scss';
 
 
 class App extends Component {
